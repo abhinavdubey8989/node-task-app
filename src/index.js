@@ -11,6 +11,16 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 
+//middle ware testing
+
+// app.use((req, res, next) => {
+//     console.log(' i am a middle ware !!');
+//     next();
+// });
+
+
+
+
 //middleware to parse incoming json to object , we access this object directly
 app.use(express.json());
 

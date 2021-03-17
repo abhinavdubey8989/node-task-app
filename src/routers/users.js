@@ -1,11 +1,17 @@
 
 
 const express = require('express');
+const multer = require('multer');
+const sharp = require('sharp');
+
+
 const { User } = require('../models/user');
 const auth = require('../middle-ware/auth');
 const user = require('../models/user');
 
 const router = new express.Router();
+
+const MEGA_BYTE = 1000000;
 
 
 //only login and register route will be public
@@ -229,6 +235,62 @@ router.delete('/users/me', auth, async (req, res) => {
     }
 });
 
+
+
+//for uploading profile pic
+const uploadMiddleWare = multer({
+    // dest: 'avatars', //we are removing this as we dont want to create a directory to store DP , and this allows us to access file inside the route handler
+    limits: {
+        fileSize: 1 * MEGA_BYTE
+    },
+
+    //method used to filter the files which can be uploaded
+    fileFilter(req, file, callback) {
+        if (!file.originalname.endsWith('.jpg') && !file.originalname.endsWith('.jpeg') && !file.originalname.endsWith('.png')) {
+            return callback(new Error('invalid file extension'));//if invalid file is uploaded
+        }
+        callback(null, true);//all things went good
+        // callback(null, false);//silently reject the upload request
+    }
+});
+
+//uploadMiddleWare will search for upload key in the request body
+//to register error handling , we must provide : error,req,res,next COMPULSARILY like shown below
+router.post('/users/me/avatar', auth, uploadMiddleWare.single('upload'), async (req, res) => {
+    const buffer = await sharp(req.file.buffer).resize({ width: 250, height: 250 }).png().toBuffer();
+    req.user.avatar = buffer; //req.file.buffer contains all binary data
+    await req.user.save();
+    res.send();
+}, (error, req, res, next) => {
+    res.status(400).send({ err: error.message });
+});
+
+
+
+
+//delete avatar
+router.delete('/users/me/avatar', auth, async (req, res) => {
+    req.user.avatar = null;
+    await req.user.save();
+    res.send();
+});
+
+
+
+//get avatar
+router.get('/users/:id/avatar', async (req, res) => {
+    try {
+        console.log(123);
+        const user = await User.findById(req.params.id);
+        if (!user || !user.avatar) {
+            throw new Error();
+        }
+        res.set("Content-Type", "image/png");//this is sent with every request, in other request expres does it for us , here we are doing manually
+        res.send(user.avatar);
+    } catch (e) {
+        res.status(404).send();
+    }
+});
 
 
 

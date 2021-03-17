@@ -67,7 +67,14 @@ const userSchema = new mongoose.Schema(
                 required: true
 
             }
-        }]
+        }],
+
+
+        //validations are done by multer , and this feild is not required
+        avatar: {
+            type: Buffer
+        }
+
 
     },
 

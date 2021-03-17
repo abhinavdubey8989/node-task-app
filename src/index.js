@@ -1,7 +1,6 @@
 const express = require('express');
 const userRouter = require('../src/routers/users');
-const taskRouter = require('../src/routers/task')
-
+const taskRouter = require('../src/routers/task');
 
 
 //the below will ensure mongoose runs , and connects to DB
@@ -12,7 +11,6 @@ const port = process.env.PORT || 3000;
 
 
 //middle ware testing
-
 // app.use((req, res, next) => {
 //     console.log(' i am a middle ware !!');
 //     next();

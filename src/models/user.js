@@ -3,7 +3,7 @@ const validator = require('validator');
 const mongoose = require('mongoose');
 const bcryptjs = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const SIGN_KEY = "anyRandomString";
+const SIGN_KEY = process.env.SIGN_KEY;
 const Task = require('./task');
 
 
@@ -164,6 +164,5 @@ userSchema.pre('remove', async function (next) {
 const User = mongoose.model('User', userSchema);
 
 module.exports = {
-    User: User,
-    SIGN_KEY: SIGN_KEY
+    User: User
 }

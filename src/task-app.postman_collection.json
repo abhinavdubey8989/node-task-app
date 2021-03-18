@@ -1,0 +1,481 @@
+{
+	"info": {
+		"_postman_id": "5cc0a696-4864-4f06-bb72-40c634a06df0",
+		"name": "task-app",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "get weather",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://ad8989-node-weather-app.herokuapp.com/weather?address=delhi",
+					"protocol": "https",
+					"host": [
+						"ad8989-node-weather-app",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"weather"
+					],
+					"query": [
+						{
+							"key": "address",
+							"value": "delhi"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"user56@gmail.com\",\n    \"name\": \"user56\",\n    \"password\": \"user56pass\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/users",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"if(pm.response.code==200){",
+							"    pm.environment.set('authToken' , pm.response.json().token)",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\" : \"user9@gmail.com\",\n    \"password\":\"user9pass\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/users/login",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "logout user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\" : \"ad8989@gmail.com\",\n    \"password\":\"passcode\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/users/logout",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"users",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "logout all tokens",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\" : \"ad8989@gmail.com\",\n    \"password\":\"passcode\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/users/logoutAll",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"users",
+						"logoutAll"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create task",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"description\":\"task_8\",\n    \"completed\":true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/task",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"task"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get user's profile",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDRhNDUyMWEzNzBlYjBjY2EyMDA4NWUiLCJpYXQiOjE2MTU0ODcxNzB9.sBdS4jBwbyQjAE4iwqqmjtiULqH3er9HrYBgzIFhXDI",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/users/me",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"users",
+						"me"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get user by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/users/604a01b568d2935b9ec310f9",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"users",
+						"604a01b568d2935b9ec310f9"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get tasks",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/task?completed=false&limit=4&sortBy=createdAt:desc",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"task"
+					],
+					"query": [
+						{
+							"key": "completed",
+							"value": "false"
+						},
+						{
+							"key": "limit",
+							"value": "4"
+						},
+						{
+							"key": "sortBy",
+							"value": "createdAt:desc"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get task by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/task/604b03ef534a0152dbb36b76",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"task",
+						"604b03ef534a0152dbb36b76"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update user profile",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"age\": 12,\n    \"email\": \"updated12@gmail.com\",\n    \"name\": \"jess12\",\n    \"password\": \"090909@123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/users/me",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"users",
+						"me"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update task by id",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"completed\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/task/604b03ef534a0152dbb36b76",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"task",
+						"604b03ef534a0152dbb36b76"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete user",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/users/me",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"users",
+						"me"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete task by id",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/task/604b03e9534a0152dbb36b75",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"task",
+						"604b03e9534a0152dbb36b75"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "upload user avatar",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "upload",
+							"type": "file",
+							"src": "/home/abhinav/Documents/node-course/files to upload/profile-pic.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/users/me/avatar",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"users",
+						"me",
+						"avatar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete user avatar",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/users/me/avatar",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"users",
+						"me",
+						"avatar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get user avatar",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/users/605170a7d6a62b40aee06986/avatar",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"users",
+						"605170a7d6a62b40aee06986",
+						"avatar"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{authToken}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

@@ -1,7 +1,9 @@
 
 
 const jwt = require('jsonwebtoken');
-const { User, SIGN_KEY } = require('../models/user');
+const { User } = require('../models/user');
+
+const SIGN_KEY = process.env.SIGN_KEY;
 
 
 
